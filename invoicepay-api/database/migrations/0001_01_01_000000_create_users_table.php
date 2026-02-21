@@ -15,6 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('bussiness_name')->nullable();
+            $table->string('bussiness_logo')->nullable();
+            $table->string('phone')->nullable();
+            $table->text('address')->nullable();
+            $table->string('paystack_secrete_key')->nullable();
+            $table->enum('plan', ["free", "pro"])->nullable();
+            $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
