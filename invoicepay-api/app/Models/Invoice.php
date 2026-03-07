@@ -42,7 +42,7 @@ class Invoice extends Model
             $invoice->public_token = Str::uuid();
 
             // Auto generate invoice number
-            $invoice->invoice_number = self::generateNummber($invoice->user_id);
+            $invoice->invoice_number = self::generateNumber($invoice->user_id);
         });
     }
 
@@ -57,20 +57,20 @@ class Invoice extends Model
         return $this->belongsTo(Client::class);
     }
 
-    //  public function items()
-    // {
-    //     return $this->hasMany(InvoiceItem::class)->orderBy('sort_order');
-    // }
+    public function items()
+    {
+        return $this->hasMany(InvoiceItem::class)->orderBy('sort_order');
+    }
 
-    // public function payments()
-    // {
-    //     return $this->hasMany(Payment::class);
-    // }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 
-    // public function reminders()
-    // {
-    //     return $this->hasMany(Reminder::class);
-    // }
+    public function reminders()
+    {
+        return $this->hasMany(Reminder::class);
+    }
 
 
     //Scopes
@@ -87,7 +87,7 @@ class Invoice extends Model
     // Helpers
     public function isDraft(): bool
     {
-        return $this->status === 'darft';
+        return $this->status === 'draft';
     }
 
     public function isPaid(): bool

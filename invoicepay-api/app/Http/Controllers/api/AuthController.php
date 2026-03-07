@@ -11,7 +11,7 @@ use Illuminate\Validation\Rules\Password;
 class AuthController extends Controller
 {
     /**
-     * Resgister a user.
+     * Register a user.
      */
     public function register(Request $request)
     {
@@ -44,7 +44,7 @@ class AuthController extends Controller
 
         if (!Auth::attempt($request->only("email", 'password'))) {
             return response()->json([
-                'error' => 'Invalid credentails.'
+                'error' => 'Invalid credentials.'
             ], 401);
         }
 
@@ -95,7 +95,7 @@ class AuthController extends Controller
         $request->user()->update($validated);
 
         return response()->json([
-            'mesaage' => "profile updated",
+            'message' => "profile updated",
             'user' => $request->user()->refresh()
         ]);
     }

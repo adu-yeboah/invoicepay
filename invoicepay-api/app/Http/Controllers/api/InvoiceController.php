@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Mail;
 class InvoiceController extends Controller
 {
 
-    // Get Invoices 
+    // Get Invoices
     public function index(Request $request)
     {
-        $query = Invoice::forUser(auth() - user()->id)
+        $query = Invoice::forUser(auth()->user()->id)
             ->with(['client', 'items']);
 
         //filter by status
@@ -63,7 +63,7 @@ class InvoiceController extends Controller
         ]);
 
         $client = Client::forUser(auth()->id())
-            ->FindeOrFail($validated['client_id']);
+            ->findOrFail($validated['client_id']);
 
         DB::beginTransaction();
         try {
