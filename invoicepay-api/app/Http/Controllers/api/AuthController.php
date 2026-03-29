@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
@@ -15,10 +16,11 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
+        try{
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'confirmed', Password::min(8)],
+            'password' => ['required',  Password::min(8)],
             'business_name' => ['nullable', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:255'],
         ]);
@@ -30,6 +32,20 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token,
         ], 201);
+
+       } catch (\Exception $e) {
+
+        // 🔴 Log full error
+        Log::error('Register Error: ' . $e->getMessage());
+
+        // Optional: log more details
+        Log::error($e->getTraceAsString());
+
+        return response()->json([
+            'message' => 'Something went wrong',
+            'error' => $e->getMessage(), // remove in production
+        ], 500);
+    }
     }
 
     /**
@@ -48,7 +64,7 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $user = Auth::user();
+        $user = User::user();
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([

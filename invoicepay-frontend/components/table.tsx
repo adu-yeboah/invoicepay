@@ -72,7 +72,6 @@ const invoices = [
 export function DashboardTable() {
   return (
     <Table className="bg-primary/7 p-10 rounded-2xl ">
-      <TableCaption>A list of your recent invoices.</TableCaption>
 
       <TableHeader className="bg-primary/10">
         <TableRow className="p-20">

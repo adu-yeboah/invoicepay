@@ -55,7 +55,7 @@ export function AppSidebar() {
                     rounded-md px-4 py-7 transition-all duration-200
                     ${
                       isActive
-                        ? "bg-primary/20 backdrop-blur-md text-primary border border-primary/20 shadow-md"
+                        ? "bg-primary/20 backdrop-blur-md text-primary border border-primary/20 "
                         : "text-muted-foreground hover:bg-primary/10 hover:text-primary"
                     }
                   `}

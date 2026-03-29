@@ -3,9 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Provider } from "react-redux";
+import { makeStore } from "@/lib/redux/store";
+import Providers from "@/components/providers";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
-
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Invoice Pay",
@@ -33,16 +35,35 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning  className={cn("font-sans", inter.variable)} >
-      <body
-        className={` antialiased`}
-      >
-        <ThemeProvider
-          defaultTheme="system"
-          storageKey="invoicepay-theme"
-        >
-          {children}
-        </ThemeProvider>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn("font-sans", inter.variable)}
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const storageKey = 'invoicepay-theme';
+                const theme = localStorage.getItem(storageKey) || 'system';
+
+                if (theme === 'system') {
+                  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  document.documentElement.classList.add(systemTheme);
+                } else {
+                  document.documentElement.classList.add(theme);
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className={` antialiased`}>
+
+        <Providers>
+          
+          {children}</Providers>
       </body>
     </html>
   );

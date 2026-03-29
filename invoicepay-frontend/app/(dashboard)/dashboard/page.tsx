@@ -103,7 +103,7 @@ export default function DashboardPage() {
           return (
             <Card
               key={stat.title}
-              className="relative overflow-hidden border bg-card/70 backdrop-blur-xl shadow-sm"
+              className="relative overflow-hidden border bg-card/70 backdrop-blur-xl "
             >
               {/* Radial Gradient Glow */}
               <div
@@ -140,18 +140,19 @@ export default function DashboardPage() {
 
       {/*Table  */}
       <div className="py-10">
-        <h4 className="text-md font-bold pb-5"> Recent Invoices</h4>
-        <Button variant="outline" size="sm" className="ml-auto mb-2">
+        <div className="flex flex-row items-center justify-between w-full py-5">
+          <h4 className="text-md font-bold pb-5"> Recent Invoices</h4>
+          <Button variant="outline" size="sm" className="ml-auto mb-2">
             view all
-        </Button>
+          </Button>
+        </div>
         <DashboardTable />
       </div>
-
 
       {/* Chart and Recent Sales */}
       <div className="grid gap-4 ">
         {/* Revenue Chart */}
-        <Card className="col-span-4">
+        <Card className="col-span-4 bg-primary/5">
           <CardHeader>
             <CardTitle>Revenue Overview</CardTitle>
             <CardDescription className="pb-10">

@@ -11,7 +11,7 @@
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
   --color-chart-2: oklch(0.809 0.105 251.813)
-  --color-chart-1: oklch(0.809 0.105 251.813);
+    --color-chart-1: oklch(0.809 0.105 251.813);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -24,6 +24,7 @@
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -34,13 +35,13 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
 }
 
 :root {
   --primary: #6c63ff;
+  --primary-light: "#a39eff67";
   --primary-foreground: #ffffff;
-  --background: oklch(1 0 0);
+  --background: oklch(100% 0.00011 271.152 / 0.984);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -57,12 +58,19 @@
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   --radius: 0.5rem;
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+  --sidebar: oklch(0.205 0 0);
 }
 
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --primary: #6c63ff;
+  --primary-light: "#a39eff67";
   --primary-foreground: #ffffff;
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
