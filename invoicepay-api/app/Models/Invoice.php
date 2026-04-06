@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class Invoice extends Model
@@ -101,7 +102,7 @@ class Invoice extends Model
     }
 
 
-    public function recalculatedTotals(): void
+    public function recalculateTotals(): void
     {
         $subtotal = $this->items()->sum('total');
         $taxAmount = round($subtotal * ($this->tax_rate / 100), 2);
@@ -118,6 +119,6 @@ class Invoice extends Model
     public static function generateNumber(int $userId): string 
     {
         $count = self::where('user_id', $userId)->count() + 1;
-        return 'INV-' . date('Y') . '-' . str_pad($count, 3, '0', 'STR_PAD_LEFT');
+        return 'INV-' . date('Y') . '-' . str_pad($count, 3, '0', STR_PAD_LEFT);
     }
 }

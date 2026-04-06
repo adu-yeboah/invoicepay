@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\InvoiceItem;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class InvoiceItemController extends Controller
@@ -22,6 +23,30 @@ class InvoiceItemController extends Controller
         $item = InvoiceItem::create($validated);
 
         return response()->json($item, 201);
+    }
+
+     public function show(InvoiceItem $InvoiceItem): JsonResponse
+    {
+        try {
+            $this->authorizeInvoiceItem($InvoiceItem);
+
+            $InvoiceItem->load(['invoices' => fn($q) => $q->latest()->take(10)]);
+
+            if (!$InvoiceItem) {
+                Log("InvoiceItem not found");
+                return response()->json([
+                    "message" => "data not found"
+                ]);
+            }
+            return response()->json([
+                'message' => 'InvoiceItem retrieved successfully',
+                'InvoiceItem'  => $InvoiceItem,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to retrieve InvoiceItem',
+            ], 500);
+        }
     }
 
     /**
@@ -48,5 +73,13 @@ class InvoiceItemController extends Controller
         $invoiceItem->delete();
 
         return response()->json(['message' => 'Item deleted successfully.']);
+    }
+
+    //Hlpers
+    private function authorizeInvoiceItem(InvoiceItem $invoiceItem)
+    {
+        if ($invoiceItem->invoice->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
     }
 }

@@ -48,6 +48,7 @@ export const registerUser = createAsyncThunk(
 
       return { token, user };
     } catch (error: any) {
+      console.log("error",error)
       return rejectWithValue(
         error.response?.data?.message || "Registration failed",
       );
