@@ -87,7 +87,7 @@ export default function DashboardPage() {
           </p>
         </div>
         <div className="flex items-center space-x-2">
-          <Button>
+          <Button className="gap-2 h-10 px-5 shadow-sm shadow-primary/15">
             <Plus className="h-4 w-4" />
             Invoice
           </Button>
@@ -103,16 +103,16 @@ export default function DashboardPage() {
           return (
             <Card
               key={stat.title}
-              className="relative overflow-hidden border-none bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+              className="relative overflow-hidden border-border/50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md group"
             >
 
               <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">
+                <CardTitle className="text-[13px] font-medium text-muted-foreground/70">
                   {stat.title}
                 </CardTitle>
 
-                <div className="p-2 rounded-lg bg-muted/40">
-                  <Icon className="h-4 w-4 text-muted-foreground" />
+                <div className="p-2 rounded-xl bg-primary/10 border border-primary/15 group-hover:border-primary/30 transition-colors duration-200">
+                  <Icon className="h-4 w-4 text-primary" />
                 </div>
               </CardHeader>
 
@@ -145,9 +145,9 @@ export default function DashboardPage() {
       {/* Chart and Recent Sales */}
       <div className="grid gap-4 ">
         {/* Revenue Chart */}
-        <Card className="col-span-4 border-none bg-card">
+        <Card className="col-span-4 border-border/50 shadow-sm">
           <CardHeader>
-            <CardTitle>Revenue Overview</CardTitle>
+            <CardTitle className="text-[15px]">Revenue Overview</CardTitle>
             <CardDescription className="pb-10">
               Monthly revenue and profit for the current year
             </CardDescription>

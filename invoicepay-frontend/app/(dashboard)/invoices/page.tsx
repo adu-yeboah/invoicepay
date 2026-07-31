@@ -134,8 +134,8 @@ export default function InvoicesPage() {
           </p>
         </div>
         <Link href="/invoices/new">
-          <Button>
-            <Plus className="h-4 w-4 mr-2" />
+          <Button className="gap-2 h-10 px-5 shadow-sm shadow-primary/15">
+            <Plus className="h-4 w-4" />
             New Invoice
           </Button>
         </Link>
@@ -143,9 +143,9 @@ export default function InvoicesPage() {
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-3">
-        <Card className="bg-card border-none">
+        <Card className="border-border/50 shadow-sm">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-[13px] font-medium text-muted-foreground/70">
               Total Amount
             </CardTitle>
           </CardHeader>
@@ -154,9 +154,9 @@ export default function InvoicesPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card border-none">
+        <Card className="border-border/50 shadow-sm">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-[13px] font-medium text-muted-foreground/70">
               Paid
             </CardTitle>
           </CardHeader>
@@ -167,9 +167,9 @@ export default function InvoicesPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card border-none">
+        <Card className="border-border/50 shadow-sm">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-[13px] font-medium text-muted-foreground/70">
               Pending
             </CardTitle>
           </CardHeader>
@@ -182,7 +182,7 @@ export default function InvoicesPage() {
       </div>
 
       {/* Search Bar */}
-      <Card className="bg-card border-none">
+      <Card className="border-border/50 shadow-sm">
         <CardContent className="pt-6">
           <div className="relative w-full max-w-sm">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -197,9 +197,9 @@ export default function InvoicesPage() {
       </Card>
 
       {/* Invoices Table */}
-      <Card className="bg-card border-none">
+      <Card className="border-border/50 shadow-sm">
         <CardHeader>
-          <CardTitle>All Invoices</CardTitle>
+          <CardTitle className="text-[15px]">All Invoices</CardTitle>
           <CardDescription>
             {filteredInvoices.length} invoice
             {filteredInvoices.length !== 1 ? "s" : ""} found

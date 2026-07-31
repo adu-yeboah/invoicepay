@@ -123,7 +123,7 @@ export default function NewInvoicePage() {
         <div className="lg:col-span-2 flex flex-col gap-6">
 
           {/* CLIENT */}
-          <Card className="bg-card border-none">
+          <Card className="border-border/50 shadow-sm">
             <CardHeader>
               <CardTitle>Client Information</CardTitle>
               <CardDescription>
@@ -168,7 +168,7 @@ export default function NewInvoicePage() {
           </Card>
 
           {/* DATES */}
-          <Card className="bg-card border-none">
+          <Card className="border-border/50 shadow-sm">
             <CardHeader>
               <CardTitle>Invoice Dates</CardTitle>
             </CardHeader>
@@ -199,7 +199,7 @@ export default function NewInvoicePage() {
           </Card>
 
           {/* LINE ITEMS */}
-          <Card className="bg-card border-none">
+          <Card className="border-border/50 shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
                 <CardTitle>Line Items</CardTitle>
@@ -302,7 +302,7 @@ export default function NewInvoicePage() {
           </Card>
 
           {/* NOTES */}
-          <Card className="bg-card border-none">
+          <Card className="border-border/50 shadow-sm">
             <CardHeader>
               <CardTitle>Notes</CardTitle>
             </CardHeader>
@@ -324,7 +324,7 @@ export default function NewInvoicePage() {
         {/* RIGHT SIDE SUMMARY */}
         <div className="flex flex-col gap-6 lg:sticky lg:top-6 h-fit">
 
-          <Card className="bg-card border-none">
+          <Card className="border-border/50 shadow-sm">
 
             <CardHeader>
               <CardTitle>Invoice Summary</CardTitle>

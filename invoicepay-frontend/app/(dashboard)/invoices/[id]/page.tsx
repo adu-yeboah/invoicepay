@@ -134,7 +134,7 @@ export default function InvoiceDetailsPage() {
         <div className="lg:col-span-2 flex flex-col gap-6">
 
           {/* INVOICE */}
-          <Card className="bg-card border-none">
+          <Card className="border-border/50 shadow-sm">
 
             <CardHeader className="flex flex-row items-start justify-between">
               <div>
@@ -250,7 +250,7 @@ export default function InvoiceDetailsPage() {
         {/* RIGHT SUMMARY */}
         <div className="flex flex-col gap-6 lg:sticky lg:top-6 h-fit">
 
-          <Card className="bg-card border-none">
+          <Card className="border-border/50 shadow-sm">
 
             <CardHeader>
               <CardTitle>Invoice Summary</CardTitle>
@@ -303,7 +303,7 @@ export default function InvoiceDetailsPage() {
                 <Link
                   href={`/dashboard/invoices/${invoice.id}/pay`}
                 >
-                  <Button className="w-full mt-2">
+                  <Button className="w-full mt-2 h-10 shadow-sm shadow-primary/15">
                     Pay Now
                   </Button>
                 </Link>
