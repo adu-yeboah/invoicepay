@@ -32,11 +32,20 @@ export function AppSidebar() {
   ];
 
   return (
-    <Sidebar className="border-r border-primary/10 bg-primary/5 backdrop-blur-xl shadow-xl">
+    <Sidebar className="border-r border-border/50 bg-background shadow-none">
 
       {/* Logo */}
-      <SidebarHeader className="border-b border-primary/10 px-6 py-6 flex flex-row items-center gap-0 text-xl font-bold tracking-tight">
-        <span className="text-primary">Invoice</span>Pay
+      <SidebarHeader className="border-b border-border/50 px-6 py-6">
+        <Link href="/dashboard" className="flex items-center gap-2.5 transition-opacity hover:opacity-90">
+          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shrink-0">
+            <span className="ff-display text-[13px] font-bold text-primary-foreground leading-none">
+              IP
+            </span>
+          </div>
+          <span className="ff-display text-[18px] font-bold text-foreground tracking-tight">
+            InvoicePay
+          </span>
+        </Link>
       </SidebarHeader>
 
       {/* Navigation */}
@@ -52,11 +61,11 @@ export function AppSidebar() {
                 <SidebarMenuButton
                   asChild
                   className={`
-                    rounded-md px-4 py-7 transition-all duration-200
+                    rounded-xl px-4 py-6 transition-all duration-200 group
                     ${
                       isActive
-                        ? "bg-primary/20 backdrop-blur-md text-primary border border-primary/20 "
-                        : "text-muted-foreground hover:bg-primary/10 hover:text-primary"
+                        ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20 font-semibold"
+                        : "text-muted-foreground hover:bg-muted/50 hover:text-foreground font-medium"
                     }
                   `}
                 >
@@ -64,8 +73,8 @@ export function AppSidebar() {
                     href={item.url}
                     className="flex items-center gap-3"
                   >
-                    <Icon className="h-5 w-5 opacity-80" />
-                    <span className="text-sm font-medium">
+                    <Icon className={`h-5 w-5 ${isActive ? "text-primary-foreground" : "text-muted-foreground group-hover:text-foreground"}`} />
+                    <span className="text-[14px]">
                       {item.name}
                     </span>
                   </Link>
@@ -77,9 +86,9 @@ export function AppSidebar() {
       </SidebarContent>
 
       {/* Footer */}
-      <SidebarFooter className="border-t border-primary/10 p-4">
-        <button className="flex items-center gap-3 w-full rounded-lg px-3 py-2 text-sm text-muted-foreground transition hover:bg-primary/10 hover:text-primary">
-          <LogOut className="h-4 w-4" />
+      <SidebarFooter className="border-t border-border/50 p-4">
+        <button className="flex items-center gap-3 w-full rounded-xl px-4 py-3 text-sm font-medium text-muted-foreground transition-all duration-200 hover:bg-destructive/10 hover:text-destructive">
+          <LogOut className="h-5 w-5" />
           Logout
         </button>
       </SidebarFooter>

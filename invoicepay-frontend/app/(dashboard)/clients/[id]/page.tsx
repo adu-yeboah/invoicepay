@@ -218,7 +218,7 @@ export default function ClientDetailsPage() {
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-3">
-        <Card className="bg-primary/10">
+        <Card className="bg-card border-none">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Total Invoiced
@@ -234,7 +234,7 @@ export default function ClientDetailsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-primary/10">
+        <Card className="bg-card border-none">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Total Paid
@@ -250,7 +250,7 @@ export default function ClientDetailsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-primary/10">
+        <Card className="bg-card border-none">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Outstanding Balance
@@ -277,7 +277,7 @@ export default function ClientDetailsPage() {
 
       <div className="grid gap-6 md:grid-cols-2">
         {/* Contact Information */}
-        <Card className="bg-primary/10">
+        <Card className="bg-card border-none">
           <CardHeader>
             <CardTitle>Contact Information</CardTitle>
             <CardDescription>
@@ -347,7 +347,7 @@ export default function ClientDetailsPage() {
 
         {/* Notes */}
         {client.notes && (
-          <Card className="bg-primary/10">
+          <Card className="bg-card border-none">
             <CardHeader>
               <CardTitle>Notes</CardTitle>
               <CardDescription>Additional information about this client</CardDescription>
@@ -360,7 +360,7 @@ export default function ClientDetailsPage() {
       </div>
 
       {/* Recent Invoices */}
-      <Card className="bg-primary/10">
+      <Card className="bg-card border-none">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>

@@ -85,7 +85,7 @@ export default function PaymentPage() {
       </div>
 
       {/* Payment Card */}
-      <Card className="w-full max-w-md bg-primary/10">
+      <Card className="w-full max-w-md bg-card border-none">
         <CardHeader>
           <CardTitle className="text-center">Amount Due</CardTitle>
           <CardDescription className="text-center">

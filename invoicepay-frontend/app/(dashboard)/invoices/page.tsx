@@ -102,7 +102,7 @@ export default function InvoicesPage() {
       case "paid":
         return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
       case "sent":
-        return "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400";
+        return "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400";
       case "overdue":
         return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400";
       case "draft":
@@ -143,7 +143,7 @@ export default function InvoicesPage() {
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-3">
-        <Card className="bg-primary/10">
+        <Card className="bg-card border-none">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Total Amount
@@ -154,7 +154,7 @@ export default function InvoicesPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-primary/10">
+        <Card className="bg-card border-none">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Paid
@@ -167,7 +167,7 @@ export default function InvoicesPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-primary/10">
+        <Card className="bg-card border-none">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Pending
@@ -182,7 +182,7 @@ export default function InvoicesPage() {
       </div>
 
       {/* Search Bar */}
-      <Card className="bg-primary/10">
+      <Card className="bg-card border-none">
         <CardContent className="pt-6">
           <div className="relative w-full max-w-sm">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -197,7 +197,7 @@ export default function InvoicesPage() {
       </Card>
 
       {/* Invoices Table */}
-      <Card className="bg-primary/10">
+      <Card className="bg-card border-none">
         <CardHeader>
           <CardTitle>All Invoices</CardTitle>
           <CardDescription>

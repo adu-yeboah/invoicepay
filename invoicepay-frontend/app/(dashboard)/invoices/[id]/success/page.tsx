@@ -70,7 +70,7 @@ export default function PaymentSuccessPage() {
       </div>
 
       {/* Receipt Card */}
-      <Card className="w-full max-w-md bg-primary/10">
+      <Card className="w-full max-w-md bg-card border-none">
         <CardHeader>
           <CardTitle>Receipt</CardTitle>
           <CardDescription>Payment confirmation</CardDescription>

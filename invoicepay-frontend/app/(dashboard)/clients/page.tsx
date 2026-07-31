@@ -133,7 +133,7 @@ export default function ClientsPage() {
       </div>
 
       {/* Search Bar */}
-      <Card className="bg-primary/10">
+      <Card className="bg-card border-none">
         <CardContent className="pt-6">
           <div className="relative w-full max-w-sm">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -148,7 +148,7 @@ export default function ClientsPage() {
       </Card>
 
       {/* Clients Table */}
-      <Card className="bg-primary/10">
+      <Card className="bg-card border-none">
         <CardHeader>
           <CardTitle>All Clients</CardTitle>
           <CardDescription>

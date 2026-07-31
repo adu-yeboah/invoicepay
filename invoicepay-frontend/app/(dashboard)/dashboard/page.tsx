@@ -49,28 +49,28 @@ export default function DashboardPage() {
       value: "$45,231.89",
       change: "+20.1% from last month",
       icon: DollarSign,
-      color: "rgb(16, 185, 129)",
+      color: "var(--primary)",
     },
     {
       title: "Subscriptions",
       value: "+2350",
       change: "+180.1% from last month",
       icon: Users,
-      color: "rgb(59, 130, 246)",
+      color: "var(--primary)",
     },
     {
       title: "Sales",
       value: "+12,234",
       change: "+19% from last month",
       icon: CreditCard,
-      color: "rgb(139, 92, 246)",
+      color: "var(--primary)",
     },
     {
       title: "Active Now",
       value: "+573",
       change: "+201 since last hour",
       icon: Activity,
-      color: "rgb(249, 115, 22)",
+      color: "var(--primary)",
     },
   ];
 
@@ -103,15 +103,8 @@ export default function DashboardPage() {
           return (
             <Card
               key={stat.title}
-              className="relative overflow-hidden border bg-card/70 backdrop-blur-xl "
+              className="relative overflow-hidden border-none bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
-              {/* Radial Gradient Glow */}
-              <div
-                className="absolute -top-10 -right-10 h-32 w-32 rounded-full blur-2xl opacity-20"
-                style={{
-                  background: `radial-gradient(circle, ${stat.color} 100%, transparent 70%)`,
-                }}
-              />
 
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">
@@ -152,7 +145,7 @@ export default function DashboardPage() {
       {/* Chart and Recent Sales */}
       <div className="grid gap-4 ">
         {/* Revenue Chart */}
-        <Card className="col-span-4 bg-primary/5">
+        <Card className="col-span-4 border-none bg-card">
           <CardHeader>
             <CardTitle>Revenue Overview</CardTitle>
             <CardDescription className="pb-10">

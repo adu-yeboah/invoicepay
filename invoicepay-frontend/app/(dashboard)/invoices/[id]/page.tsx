@@ -91,7 +91,7 @@ export default function InvoiceDetailsPage() {
       case "paid":
         return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
       case "sent":
-        return "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400";
+        return "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400";
       case "overdue":
         return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400";
       default:
@@ -134,7 +134,7 @@ export default function InvoiceDetailsPage() {
         <div className="lg:col-span-2 flex flex-col gap-6">
 
           {/* INVOICE */}
-          <Card className="bg-primary/10">
+          <Card className="bg-card border-none">
 
             <CardHeader className="flex flex-row items-start justify-between">
               <div>
@@ -250,7 +250,7 @@ export default function InvoiceDetailsPage() {
         {/* RIGHT SUMMARY */}
         <div className="flex flex-col gap-6 lg:sticky lg:top-6 h-fit">
 
-          <Card className="bg-primary/10">
+          <Card className="bg-card border-none">
 
             <CardHeader>
               <CardTitle>Invoice Summary</CardTitle>

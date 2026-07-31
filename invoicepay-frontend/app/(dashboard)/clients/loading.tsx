@@ -13,12 +13,12 @@ export default function ClientsLoading() {
       </div>
 
       {/* Search */}
-      <div className="rounded-xl bg-primary/10 p-6">
+      <div className="rounded-xl bg-card border-none p-6">
         <Skeleton className="h-10 w-64" />
       </div>
 
       {/* Table */}
-      <div className="rounded-xl bg-primary/10 p-6">
+      <div className="rounded-xl bg-card border-none p-6">
         <Skeleton className="h-6 w-32 mb-4" />
         <div className="space-y-3">
           {Array.from({ length: 6 }).map((_, i) => (

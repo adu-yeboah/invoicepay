@@ -71,10 +71,9 @@ const invoices = [
 
 export function DashboardTable() {
   return (
-    <Table className="bg-primary/7 p-10 rounded-2xl ">
-
-      <TableHeader className="bg-primary/10">
-        <TableRow className="p-20">
+    <Table className="bg-card border-none">
+      <TableHeader className="bg-muted/50">
+        <TableRow className="border-b-border/50">
           <TableHead className="w-[100px] p-4">Invoice</TableHead>
           <TableHead>Status</TableHead>
           <TableHead>Payment Method</TableHead>
@@ -86,15 +85,15 @@ export function DashboardTable() {
       </TableHeader>
       <TableBody>
         {invoices.slice(0, 3).map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
+          <TableRow key={invoice.invoice} className="border-b-border/50 hover:bg-muted/30 transition-colors">
+            <TableCell className="font-medium p-4">{invoice.invoice}</TableCell>
             <TableCell>{invoice.paymentStatus}</TableCell>
             <TableCell>{invoice.paymentMethod}</TableCell>
             <TableCell className="text-right">{invoice.totalAmount}</TableCell>
                         <TableCell>{invoice.dueDate}</TableCell>
 
-            <TableCell className="text-left align-bottom items-end">
-              <ArrowRight />
+            <TableCell className="text-right">
+              <ArrowRight className="inline-block text-primary cursor-pointer hover:translate-x-1 transition-transform" size={18} />
             </TableCell>
           </TableRow>
         ))}

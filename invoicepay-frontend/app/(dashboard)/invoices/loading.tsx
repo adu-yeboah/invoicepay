@@ -15,7 +15,7 @@ export default function InvoicesLoading() {
       {/* Stats */}
       <div className="grid gap-4 md:grid-cols-3">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="rounded-xl bg-primary/10 p-6">
+          <div key={i} className="rounded-xl bg-card border-none p-6">
             <Skeleton className="h-4 w-24 mb-3" />
             <Skeleton className="h-7 w-32" />
           </div>
@@ -23,12 +23,12 @@ export default function InvoicesLoading() {
       </div>
 
       {/* Search + Filters */}
-      <div className="rounded-xl bg-primary/10 p-6">
+      <div className="rounded-xl bg-card border-none p-6">
         <Skeleton className="h-10 w-64" />
       </div>
 
       {/* Table */}
-      <div className="rounded-xl bg-primary/10 p-6">
+      <div className="rounded-xl bg-card border-none p-6">
         <Skeleton className="h-6 w-32 mb-4" />
         <div className="space-y-3">
           {Array.from({ length: 6 }).map((_, i) => (

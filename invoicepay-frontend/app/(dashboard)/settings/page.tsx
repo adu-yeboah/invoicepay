@@ -21,6 +21,7 @@ import {
   Eye,
   EyeOff,
   Save,
+  CheckCircle2,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
@@ -28,24 +29,24 @@ export default function SettingsPage() {
   const [showSecretKey, setShowSecretKey] = useState(false);
 
   return (
-    <div className="flex-1 flex-col flex w-full gap-8 p-4 md:p-8 pt-6">
+    <div className="flex-1 flex-col flex w-full gap-6 p-4 md:p-8 pt-6">
       {/* Header */}
-      <div className="space-y-4">
+      <div className="space-y-1">
         <h2 className="text-3xl font-bold tracking-tight">Settings</h2>
-        <p className="text-muted-foreground pb-2">
+        <p className="text-muted-foreground">
           Manage your account and preferences
         </p>
       </div>
 
-      {/* Business Profile Section */}
-      <Card className="bg-primary/10">
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-primary/10">
+      {/* ── Business Profile ── */}
+      <Card className="border-border/50 shadow-sm">
+        <CardHeader className="pb-5">
+          <div className="flex items-center gap-3.5">
+            <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/15">
               <Building2 className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <CardTitle>Business Profile</CardTitle>
+              <CardTitle className="text-[15px]">Business Profile</CardTitle>
               <CardDescription>
                 Update your business information and logo
               </CardDescription>
@@ -56,78 +57,73 @@ export default function SettingsPage() {
         <CardContent className="flex flex-col gap-6">
           {/* Logo Upload */}
           <div className="flex flex-col gap-3">
-            <Label>Business Logo</Label>
-            <div className="flex items-center gap-4">
-              <div className="h-20 w-20 rounded-lg border-2 border-dashed border-border bg-muted/20 flex items-center justify-center cursor-pointer hover:border-primary/50 transition-colors">
+            <Label className="text-[13px] font-medium">Business Logo</Label>
+            <div className="flex items-center gap-5">
+              <div className="h-20 w-20 rounded-xl border-2 border-dashed border-border hover:border-primary/50 bg-muted/30 flex items-center justify-center cursor-pointer transition-colors duration-200 group">
                 <div className="text-center">
-                  <Upload className="h-6 w-6 mx-auto mb-1 text-muted-foreground" />
-                  <p className="text-xs text-muted-foreground">
-                    PNG, JPG up to 2MB
+                  <Upload className="h-5 w-5 mx-auto mb-1 text-muted-foreground/60 group-hover:text-primary/60 transition-colors duration-200" />
+                  <p className="text-[10px] text-muted-foreground/50 leading-tight">
+                    PNG, JPG
+                    <br />
+                    up to 2MB
                   </p>
                 </div>
               </div>
-              <div className="flex-1">
+              <div className="flex-1 space-y-1">
                 <p className="text-sm font-medium">Upload your logo</p>
-                <p className="text-xs text-muted-foreground">
-                  Click to upload your business logo (PNG, JPG up to 2MB)
+                <p className="text-xs text-muted-foreground/70">
+                  Appears on all your invoices. Recommended: 200×200px with a
+                  transparent background.
                 </p>
               </div>
             </div>
           </div>
 
-          <Separator />
+          <Separator className="bg-border/40" />
 
           {/* Form Fields */}
-          <div className="grid gap-6 md:grid-cols-2">
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="fullName">Full Name</Label>
-              <Input
-                id="fullName"
-                defaultValue="Samuel Adu Yeboah"
-                placeholder="Enter your full name"
-              />
-            </div>
+          <div className="grid gap-5 md:grid-cols-2">
+            {[
+              { id: "fullName", label: "Full Name", value: "Samuel Adu Yeboah", placeholder: "Enter your full name" },
+              { id: "businessName", label: "Business Name", value: "Adu Studio", placeholder: "Enter your business name" },
+              { id: "phone", label: "Phone", value: "+233 50 927 2549", placeholder: "+233 XX XXX XXXX" },
+              { id: "email", label: "Email", value: "samuel@adustudio.gh", placeholder: "your@email.com", type: "email" },
+            ].map((field) => (
+              <div key={field.id} className="flex flex-col gap-2">
+                <Label
+                  htmlFor={field.id}
+                  className="text-[13px] font-medium"
+                >
+                  {field.label}
+                </Label>
+                <Input
+                  id={field.id}
+                  type={field.type || "text"}
+                  defaultValue={field.value}
+                  placeholder={field.placeholder}
+                  className="h-10"
+                />
+              </div>
+            ))}
 
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="businessName">Business Name</Label>
-              <Input
-                id="businessName"
-                defaultValue="Adu Studio"
-                placeholder="Enter your business name"
-              />
-            </div>
-
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="phone">Phone</Label>
-              <Input
-                id="phone"
-                defaultValue="+233 50 927 2549"
-                placeholder="+233 XX XXX XXXX"
-              />
-            </div>
-
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                defaultValue="samuel@adustudio.gh"
-                placeholder="your@email.com"
-              />
-            </div>
-
-            <div className="flex flex-col gap-3 md:col-span-2">
-              <Label htmlFor="address">Business Address</Label>
+            <div className="flex flex-col gap-2 md:col-span-2">
+              <Label
+                htmlFor="address"
+                className="text-[13px] font-medium"
+              >
+                Business Address
+              </Label>
               <Input
                 id="address"
                 defaultValue="Tema, Greater Accra, Ghana"
                 placeholder="Enter your business address"
+                className="h-10"
               />
             </div>
           </div>
 
-          <div className="flex justify-end">
-            <Button className="gap-2">
+          <div className="flex justify-end pt-2">
+            <Button className="gap-2 h-10 px-5 shadow-sm shadow-primary/15">
               <Save className="h-4 w-4" />
               Save Changes
             </Button>
@@ -135,42 +131,50 @@ export default function SettingsPage() {
         </CardContent>
       </Card>
 
-      {/* Payment Setup Section */}
-      <Card className="bg-primary/10">
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-primary/10">
+      {/* ── Payment Setup ── */}
+      <Card className="border-border/50 shadow-sm">
+        <CardHeader className="pb-5">
+          <div className="flex items-center gap-3.5">
+            <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/15">
               <CreditCard className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <CardTitle>Payment Setup</CardTitle>
-              <CardDescription>Configure your payment integration</CardDescription>
+              <CardTitle className="text-[15px]">Payment Setup</CardTitle>
+              <CardDescription>
+                Configure your payment integration
+              </CardDescription>
             </div>
           </div>
         </CardHeader>
+
         <CardContent className="flex flex-col gap-6">
-          {/* Paystack Integration */}
           <div className="flex flex-col gap-4">
-            <div>
-              <h4 className="font-semibold mb-1">Paystack Integration</h4>
-              <p className="text-sm text-muted-foreground">
-                Connect your Paystack account to accept payments
+            <div className="space-y-1">
+              <h4 className="font-semibold text-sm">Paystack Integration</h4>
+              <p className="text-sm text-muted-foreground/70">
+                Connect your Paystack account to accept card and mobile money
+                payments
               </p>
             </div>
 
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="secretKey">Secret Key</Label>
+            <div className="flex flex-col gap-2">
+              <Label
+                htmlFor="secretKey"
+                className="text-[13px] font-medium"
+              >
+                Secret Key
+              </Label>
               <div className="relative">
                 <Input
                   id="secretKey"
                   type={showSecretKey ? "text" : "password"}
                   defaultValue="sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                  className="pr-10 font-mono"
+                  className="pr-10 font-mono text-[13px] h-10"
                 />
                 <button
                   type="button"
                   onClick={() => setShowSecretKey(!showSecretKey)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-foreground transition-colors duration-200"
                 >
                   {showSecretKey ? (
                     <EyeOff className="h-4 w-4" />
@@ -179,24 +183,25 @@ export default function SettingsPage() {
                   )}
                 </button>
               </div>
-              <p className="text-xs text-muted-foreground">
-                Found in your Paystack Dashboard → Settings → API Keys
+              <p className="text-xs text-muted-foreground/60">
+                Found in your Paystack Dashboard → Settings → API Keys &amp;
+                Webhooks
               </p>
             </div>
 
-            <div className="flex items-center justify-between p-4 rounded-lg bg-muted/40 border">
-              <div>
+            <div className="flex items-center justify-between p-4 rounded-xl bg-muted/40 border border-border/40">
+              <div className="space-y-0.5">
                 <p className="font-medium text-sm">Test Mode</p>
-                <p className="text-xs text-muted-foreground">
-                  Use Paystack test environment
+                <p className="text-xs text-muted-foreground/70">
+                  Use Paystack&apos;s test environment for development
                 </p>
               </div>
               <Switch defaultChecked />
             </div>
           </div>
 
-          <div className="flex justify-end">
-            <Button className="gap-2">
+          <div className="flex justify-end pt-2">
+            <Button className="gap-2 h-10 px-5 shadow-sm shadow-primary/15">
               <Save className="h-4 w-4" />
               Save Changes
             </Button>
@@ -204,66 +209,59 @@ export default function SettingsPage() {
         </CardContent>
       </Card>
 
-      {/* Notifications Section */}
-      <Card  className="bg-primary/10">
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-primary/10">
+      {/* ── Notifications ── */}
+      <Card className="border-border/50 shadow-sm">
+        <CardHeader className="pb-5">
+          <div className="flex items-center gap-3.5">
+            <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/15">
               <Bell className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <CardTitle>Notifications</CardTitle>
+              <CardTitle className="text-[15px]">Notifications</CardTitle>
               <CardDescription>
                 Manage how you receive notifications
               </CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="flex flex-col gap-6">
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between p-4 rounded-lg border">
-              <div>
-                <p className="font-medium text-sm">Email Notifications</p>
-                <p className="text-xs text-muted-foreground">
-                  Receive email updates about your invoices
-                </p>
-              </div>
-              <Switch defaultChecked />
-            </div>
 
-            <div className="flex items-center justify-between p-4 rounded-lg border">
-              <div>
-                <p className="font-medium text-sm">Payment Alerts</p>
-                <p className="text-xs text-muted-foreground">
-                  Get notified when payments are received
-                </p>
+        <CardContent className="flex flex-col gap-3">
+          {[
+            {
+              title: "Email Notifications",
+              desc: "Receive email updates about your invoices and account",
+              checked: true,
+            },
+            {
+              title: "Payment Alerts",
+              desc: "Get notified instantly when payments are received",
+              checked: true,
+            },
+            {
+              title: "Invoice Reminders",
+              desc: "Automated reminders for unpaid invoices",
+              checked: false,
+            },
+            {
+              title: "Marketing Emails",
+              desc: "Receive tips, product updates, and promotions",
+              checked: false,
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="flex items-center justify-between p-4 rounded-xl border border-border/40 hover:border-border/70 transition-colors duration-200 group"
+            >
+              <div className="space-y-0.5 pr-4">
+                <p className="font-medium text-sm">{item.title}</p>
+                <p className="text-xs text-muted-foreground/70">{item.desc}</p>
               </div>
-              <Switch defaultChecked />
+              <Switch defaultChecked={item.checked} className="shrink-0" />
             </div>
+          ))}
 
-            <div className="flex items-center justify-between p-4 rounded-lg border">
-              <div>
-                <p className="font-medium text-sm">Invoice Reminders</p>
-                <p className="text-xs text-muted-foreground">
-                  Automated reminders for unpaid invoices
-                </p>
-              </div>
-              <Switch />
-            </div>
-
-            <div className="flex items-center justify-between p-4 rounded-lg border">
-              <div>
-                <p className="font-medium text-sm">Marketing Emails</p>
-                <p className="text-xs text-muted-foreground">
-                  Receive tips and product updates
-                </p>
-              </div>
-              <Switch />
-            </div>
-          </div>
-
-          <div className="flex justify-end">
-            <Button className="gap-2">
+          <div className="flex justify-end pt-3">
+            <Button className="gap-2 h-10 px-5 shadow-sm shadow-primary/15">
               <Save className="h-4 w-4" />
               Save Changes
             </Button>
@@ -271,42 +269,50 @@ export default function SettingsPage() {
         </CardContent>
       </Card>
 
-      {/* Danger Zone Section */}
-      <Card className="border-destructive/50 bg-primary/10">
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-destructive/10">
+      {/* ── Danger Zone ── */}
+      <Card className="border-destructive/25 shadow-sm">
+        <CardHeader className="pb-5">
+          <div className="flex items-center gap-3.5">
+            <div className="p-2.5 rounded-xl bg-destructive/10 border border-destructive/15">
               <AlertTriangle className="h-5 w-5 text-destructive" />
             </div>
             <div>
-              <CardTitle className="text-destructive">Danger Zone</CardTitle>
+              <CardTitle className="text-[15px] text-destructive">
+                Danger Zone
+              </CardTitle>
               <CardDescription>
                 Irreversible and destructive actions
               </CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="flex flex-col gap-6">
-          <div className="flex items-center justify-between p-4 rounded-lg border border-destructive/20 bg-destructive/5">
-            <div>
+
+        <CardContent className="flex flex-col gap-3">
+          <div className="flex items-center justify-between p-4 rounded-xl border border-destructive/20 bg-destructive/[0.03]">
+            <div className="space-y-0.5 pr-4">
               <p className="font-medium text-sm">Delete Account</p>
-              <p className="text-xs text-muted-foreground">
-                Permanently delete your account and all data
+              <p className="text-xs text-muted-foreground/70">
+                Permanently delete your account and all associated data
               </p>
             </div>
-            <Button variant="destructive" size="sm">
+            <Button variant="destructive" size="sm" className="shrink-0 h-9">
               Delete Account
             </Button>
           </div>
 
-          <div className="flex items-center justify-between p-4 rounded-lg border border-destructive/20 bg-destructive/5">
-            <div>
+          <div className="flex items-center justify-between p-4 rounded-xl border border-border/40 hover:border-border/70 transition-colors duration-200">
+            <div className="space-y-0.5 pr-4">
               <p className="font-medium text-sm">Export Data</p>
-              <p className="text-xs text-muted-foreground">
-                Download all your data in JSON format
+              <p className="text-xs text-muted-foreground/70">
+                Download all your invoices, clients, and settings in JSON
               </p>
             </div>
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+              className="shrink-0 h-9 gap-1.5"
+            >
+              <CheckCircle2 className="h-3.5 w-3.5" />
               Export Data
             </Button>
           </div>
