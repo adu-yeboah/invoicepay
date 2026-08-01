@@ -1,0 +1,123 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password_hash String
+  name          String?
+  business_name String?
+  business_logo String?
+  phone         String?
+  address       String?       // Added: Business address
+  
+  // Payment Integration Setup
+  paystack_secret_key String?
+  paystack_test_mode  Boolean @default(true)
+  
+  // Notification Preferences
+  email_notifications Boolean @default(true)
+  payment_alerts      Boolean @default(true)
+  invoice_reminders   Boolean @default(false)
+  marketing_emails    Boolean @default(false)
+  
+  clients       Client[]
+  invoices      Invoice[]
+  notifications Notification[]
+  
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+}
+model Client {
+  id            String    @id @default(uuid())
+  user_id       String
+  user          User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  name          String
+  email         String
+  phone         String?
+  address       String?
+  
+  invoices      Invoice[]
+  
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+}
+model Invoice {
+  id              String    @id @default(uuid())
+  user_id         String
+  user            User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  client_id       String
+  client          Client    @relation(fields: [client_id], references: [id], onDelete: Cascade)
+  
+  invoice_number  String
+  title           String?
+  notes           String?
+  status          String    @default("draft") // draft, sent, paid, overdue, cancelled
+  
+  issue_date      DateTime
+  due_date        DateTime
+  
+  subtotal        Float     @default(0)
+  tax_rate        Float     @default(0)
+  tax_amount      Float     @default(0)
+  total           Float     @default(0)
+  
+  public_token    String    @unique @default(uuid())
+  paid_at         DateTime?
+  
+  items           InvoiceItem[]
+  payments        Payment[]
+  
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+}
+model InvoiceItem {
+  id          String   @id @default(uuid())
+  invoice_id  String
+  invoice     Invoice  @relation(fields: [invoice_id], references: [id], onDelete: Cascade)
+  
+  description String
+  quantity    Int
+  unit_price  Float
+  total       Float
+  sort_order  Int      @default(0)
+}
+model Payment {
+  id                  String    @id @default(uuid())
+  invoice_id          String
+  invoice             Invoice   @relation(fields: [invoice_id], references: [id], onDelete: Cascade)
+  
+  paystack_reference  String    @unique
+  amount              Float
+  currency            String    @default("GHS")
+  payment_method      String?
+  status              String    @default("pending") // pending, success, failed
+  
+  paid_at             DateTime?
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
+}
+model Notification {
+  id          String    @id @default(uuid())
+  user_id     String
+  user        User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  title       String
+  message     String
+  type        String    @default("info") // info, success, warning, error
+  is_read     Boolean   @default(false)
+  
+  action_url  String?   
+  
+  created_at  DateTime  @default(now())
+}
