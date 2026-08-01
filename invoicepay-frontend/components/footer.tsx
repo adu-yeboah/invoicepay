@@ -1,4 +1,5 @@
 import { Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -8,14 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.5fr] gap-10 mb-14">
           <div>
             <div className="flex items-center gap-2.5 mb-5">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="ff-display text-[13px] font-bold text-primary-foreground">
-                  IP
-                </span>
-              </div>
-              <span className="ff-display text-[17px] font-bold">
-                InvoicePay
-              </span>
+              <Image src={"/logo.png"} height={40} width={50} alt="logo" />
             </div>
             <p className="text-[13px] text-muted-foreground/60 leading-[1.75] max-w-xs">
               Simple invoicing for Ghanaian businesses. Get paid faster with
@@ -37,7 +31,6 @@ export default function Footer() {
               links: [
                 ["About", "/about"],
                 ["Blog", "/blog"],
-                ["Careers", "/careers"],
               ],
             },
           ].map((col) => (
