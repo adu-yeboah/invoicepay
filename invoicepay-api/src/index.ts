@@ -13,7 +13,8 @@ app.use(compression());
 app.use(morgan('dev'))
 
 // Routes
-// app.use("/api", routes);
+import authRoutes from "./routes/auth.route.js";
+app.use("/api/auth", authRoutes);
 
 // Health Check
 app.get("/health", (_, res) => {
