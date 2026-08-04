@@ -35,7 +35,7 @@ process.on("SIGINT", async () => {
     console.log(
       `⏳ Waiting for ${activeConnections} active requests to finish...`,
     );
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       const checkInterval = setInterval(() => {
         if (activeConnections === 0) {
           clearInterval(checkInterval);

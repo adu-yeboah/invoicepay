@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs"
-import jwt from 'jsonwebtoken';
+import jwt,  { type SignOptions } from 'jsonwebtoken';
 
 //Password Hashing 
 export const hashPassword = async (password: string): Promise<string> => {
@@ -15,8 +15,8 @@ export const comparePassword = async (password: string, hash: string): Promise<b
 
 //JWT token generation 
 const JWT_SECRET = process.env.JWT_SECRET || '30m'
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d'
-const REFRESH_TOKEN_EXPIRES_IN = process.env.REFRESH_TOKEN_EXPIRES_IN || '30d'
+const JWT_EXPIRES_IN: SignOptions['expiresIn'] =  '7d'
+const REFRESH_TOKEN_EXPIRES_IN = process.env.REFRESH_TOKEN_EXPIRES_IN as SignOptions['expiresIn'] || '30d'
 
 
 export interface TokenPayload {

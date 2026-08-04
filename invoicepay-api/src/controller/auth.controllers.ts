@@ -1,4 +1,5 @@
 import { prisma } from "#config/database.js";
+import { getGoogleAuthUrl, getGoogleUserInfo } from "#config/passport.js";
 import {
   comparePassword,
   generateAccessToken,
@@ -12,6 +13,7 @@ import {
   type RegisterInput,
 } from "#utils/validation.schema.js";
 import type { Request, Response } from "express";
+import { OAuth2Client } from "google-auth-library";
 
 // register
 export const register = async (req: Request, res: Response) => {
@@ -34,8 +36,8 @@ export const register = async (req: Request, res: Response) => {
       data: {
         email: validateData.email,
         password_hash: hashedPassword,
-        business_name: validateData.business_name,
-        phone: validateData.phone,
+        business_name: validateData.business_name!,
+        phone: validateData.phone!,
       },
       select: {
         id: true,
@@ -160,3 +162,123 @@ export const getCurrentUser = async (req: Request, res: Response) => {
   }
 };
 
+//start Google OAuth
+export const googleAuth = (req: Request, res: Response) => {
+  const authUrl = getGoogleAuthUrl();
+  res.json({ success: true, authUrl });
+};
+
+//Google OAuth Callback
+export const googleCallback = async (req: Request, res: Response) => {
+  try {
+    const { code } = req.query;
+
+    if (!code || typeof code !== "string") {
+      return res.status(401).json({
+        success: false,
+        message: "Authorization code is required",
+      });
+    }
+
+    const userInfo = await getGoogleUserInfo(code);
+
+    let user = await prisma.user.findUnique({
+      where: { email: userInfo.email! },
+    });
+
+    if (!user) {
+      user = await prisma.user.create({
+        data: {
+          email: userInfo.email!,
+          name: userInfo.name!,
+          password_hash: "OAUTH_USER",
+          business_name: userInfo.name!,
+        },
+      });
+    }
+
+    const payloadToken = {
+      userId: user.id,
+      email: user.email,
+    };
+    const accessToken = generateAccessToken(payloadToken);
+    const refreshToken = generateRefreshToken(payloadToken);
+
+    res.redirect(
+      `${process.env.FRONTEND_URL}/auth/callback?accessToken=${accessToken}&refreshToken=${refreshToken}`,
+    );
+  } catch (error) {
+    console.error("Google OAuth error;", error);
+    res.redirect(`${process.env.FRONTEND_URL}/auth/error`);
+  }
+};
+
+//verify Google Token
+export const verifyGoogleToken = async (req: Request, res: Response) => {
+  try {
+    const { idToken } = req.body;
+    if (!idToken) {
+      return res.status(400).json({
+        status: false,
+        message: "Google ID token is required",
+      });
+    }
+
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+    const ticket = await client.verifyIdToken({
+      idToken,
+      audience: process.env.GOOGLE_CLIENT_ID as string,
+    });
+
+    const payload = ticket.getPayload();
+
+    if (!payload?.email) {
+      return res.status(400).json({
+        success: false,
+        message: "Inavid Google Token",
+      });
+    }
+
+    // Find or create user (same as above...)
+    let user = await prisma.user.findUnique({
+      where: { email: payload.email },
+    });
+
+    if (!user) {
+      user = await prisma.user.create({
+        data: {
+          email: payload.email!,
+          name: payload.name!,
+          password_hash: "OAUTH_USER",
+          business_name: payload.name!,
+        },
+      });
+    }
+
+    const tokenPayload = {
+      userId: user.id,
+      email: user.email,
+    };
+
+    const accessToken = generateAccessToken(tokenPayload);
+    const refreshToken = generateRefreshToken(tokenPayload);
+
+    res.json({
+      success: true,
+      data: {
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+        },
+        accessToken,
+        refreshToken,
+      },
+    });
+  } catch (error) {
+    res.status(401).json({
+      success: false,
+      message: "Invalid Google token",
+    });
+  }
+};
