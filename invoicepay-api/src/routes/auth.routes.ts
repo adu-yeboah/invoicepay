@@ -1,4 +1,4 @@
-import { getCurrentUser, googleAuth, googleCallback, login, register, verifyGoogleToken } from "#controller/auth.controllers.js";
+import { getCurrentUser, googleAuth, googleCallback, login, register, verifyGoogleToken } from "../controllers/auth.controller.js";
 import { authenticate } from "#middleware/auth.middleware.js";
 import { Router } from "express";
 import rateLimit from "express-rate-limit";
