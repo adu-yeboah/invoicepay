@@ -16,7 +16,7 @@ export const storeOTP = (
   otp: string,
   minutesValid: number = 5,
 ) => {
-  const expiresAt = new Date(Date.now() + minutesValid);
+  const expiresAt = new Date(Date.now() + minutesValid * 60 * 1000);
   otpStore.set(email, { otp, expiresAt });
 };
 
@@ -53,7 +53,7 @@ export const storeToken = (
   tokenStore.set(token, { email, expiresAt });
 };
 
-export const verifyToken = (token: string): string | null => {
+export const verifySecureToken = (token: string): string | null => {
   const stored = tokenStore.get(token);
   if (!stored) {
     return null;

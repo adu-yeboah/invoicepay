@@ -1,6 +1,6 @@
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import QRCode from 'qrcode';
-import { prisma } from '../config/database.js';
+import { prisma } from '#config/database.js';
 
 export interface InvoiceCalculation {
   subtotal: number;
@@ -28,7 +28,7 @@ export const validateInvoiceItem = (item: any): void => {
 
 export const generateInvoicePDF = async (invoice: any, client: any, items: any[], businessInfo: any) => {
   const pdfDoc = await PDFDocument.create();
-  const page = pdfDoc.addPage([595.28, 841.89]); // A4 size
+  let page = pdfDoc.addPage([595.28, 841.89]); // A4 size
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
   const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
@@ -245,7 +245,7 @@ export const generateInvoicePDF = async (invoice: any, client: any, items: any[]
 
     if (yPosition < 150) {
       // Add new page if running out of space
-      const newPage = pdfDoc.addPage([595.28, 841.89]);
+      page = pdfDoc.addPage([595.28, 841.89]);
       yPosition = 800;
     }
   }

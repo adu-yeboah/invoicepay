@@ -1,5 +1,5 @@
 import { closeDatabase, initailizeDatabase } from "#config/database.js";
-import app from "./index.js";
+import app, { activeConnections } from "./index.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -20,13 +20,7 @@ const startServer = async () => {
 
 
 // SHUTTING DOWN GRACEFULLY
-let activeConnections = 0;
 
-app.use((req, res, next) => {
-  activeConnections++;
-  res.on("finish", () => activeConnections--);
-  next();
-});
 
 process.on("SIGINT", async () => {
   console.log(" Shutdown signal received...");

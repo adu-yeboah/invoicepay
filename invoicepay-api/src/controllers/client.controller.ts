@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import { prisma } from '../config/database.js';
-import { createClientSchema, updateClientSchema, listClientsSchema } from '../utils/validation.schema.js';
+import { prisma } from '#config/database.js';
+import { createClientSchema, updateClientSchema, listClientsSchema } from '#utils/validation.schema.js';
 
 // Create Client
 export const createClient = async (req: Request, res: Response) => {
@@ -240,7 +240,7 @@ export const deleteClient = async (req: Request, res: Response) => {
     const client = await prisma.client.findFirst({
       where: {
         id: clientId,
-        user_id: req. user!.userId
+        user_id: req.user!.userId
       },
       include: {
         _count: { select: { invoices: true } }
@@ -255,12 +255,7 @@ export const deleteClient = async (req: Request, res: Response) => {
     }
 
     // Check if client has invoices
-    const clientWithInvoices = await prisma.client.findFirst({
-      where: { id: clientId },
-      include: { _count: { select: { invoices: true } } }
-    });
-
-    if (clientWithInvoices && clientWithInvoices._count.invoices > 0) {
+    if (client._count.invoices > 0) {
       return res.status(400).json({
         success: false,
         message: 'Cannot delete client with existing invoices. Delete invoices first or archive them.'
