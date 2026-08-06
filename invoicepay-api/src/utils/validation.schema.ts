@@ -128,3 +128,24 @@ export type AddItemInput = z.infer<typeof addItemSchema>;
 export type UpdateItemInput = z.infer<typeof updateItemSchema>;
 export type ListInvoicesInput = z.infer<typeof listInvoicesSchema>;
 export type SendInvoiceInput = z.infer<typeof sendInvoiceSchema>;
+
+// Settings schemas
+export const updateProfileSchema = z.object({
+  name: z.string().min(2).max(100).optional(),
+  business_name: z.string().min(2).max(100).optional(),
+  business_logo: z.string().url('Invalid URL').optional(),
+  phone: z.string().regex(/^\+?[1-9]\d{1,14}$/, 'Invalid phone number').optional(),
+  address: z.string().max(500).optional()
+});
+
+export const updateIntegrationsSchema = z.object({
+  paystack_secret_key: z.string().optional(),
+  paystack_test_mode: z.boolean().optional()
+});
+
+export const updateNotificationsPrefsSchema = z.object({
+  email_notifications: z.boolean().optional(),
+  payment_alerts: z.boolean().optional(),
+  invoice_reminders: z.boolean().optional(),
+  marketing_emails: z.boolean().optional()
+});

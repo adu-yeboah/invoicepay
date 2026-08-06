@@ -6,6 +6,9 @@ import morgan from 'morgan'
 import authRoutes from './routes/auth.route.js'
 import clientRoutes from './routes/client.route.js'
 import invoiceRoutes, { publicRouter } from './routes/invoice.route.js'
+import settingsRoutes from './routes/settings.route.js'
+import notificationRoutes from './routes/notification.route.js'
+import paymentRoutes from './routes/payment.route.js'
 
 const app  =  express()
 
@@ -26,6 +29,9 @@ app.use((req, res, next) => {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/clients", clientRoutes);
+app.use("/api/settings", settingsRoutes);
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/payments", paymentRoutes);
 app.use("/api/invoices", publicRouter); // Must come before authenticated router
 app.use("/api/invoices", invoiceRoutes);
 
