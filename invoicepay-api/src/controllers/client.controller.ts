@@ -240,7 +240,7 @@ export const deleteClient = async (req: Request, res: Response) => {
     const client = await prisma.client.findFirst({
       where: {
         id: clientId,
-        user_id: req.user!.userId
+        user_id: req. user!.userId
       },
       include: {
         _count: { select: { invoices: true } }
