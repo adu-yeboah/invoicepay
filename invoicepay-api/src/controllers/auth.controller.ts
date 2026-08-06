@@ -98,7 +98,7 @@ export const login = async (req: Request, res: Response) => {
     if (!isValidPassword) {
       return res.status(401).json({
         success: false,
-        message: "Inavlid Email or Password",
+        message: "Invalid Email or Password",
       });
     }
 
@@ -118,7 +118,7 @@ export const login = async (req: Request, res: Response) => {
           id: user.id,
           email: user.email,
           name: user.name,
-          bussiness_name: user.business_name,
+          business_name: user.business_name,
         },
         accessToken,
         refreshToken,
@@ -150,10 +150,15 @@ export const getCurrentUser = async (req: Request, res: Response) => {
 
     if (!user) {
       return res.status(404).json({
-        success: true,
-        data: { user },
+        success: false,
+        message: "User not found"
       });
     }
+
+    return res.status(200).json({
+      success: true,
+      data: { user }
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -235,7 +240,7 @@ export const verifyGoogleToken = async (req: Request, res: Response) => {
     if (!payload?.email) {
       return res.status(400).json({
         success: false,
-        message: "Inavid Google Token",
+        message: "Invalid Google Token",
       });
     }
 

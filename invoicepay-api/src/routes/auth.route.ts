@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { register, login, getCurrentUser } from '../controllers/auth.controller.js';
+import { register, login, getCurrentUser, googleAuth, googleCallback, verifyGoogleToken } from '../controllers/auth.controller.js';
 import { authenticate } from '../middleware/auth.middleware.js';
 import rateLimit from 'express-rate-limit';
 
@@ -19,6 +19,11 @@ const authLimiter = rateLimit({
 // Public routes
 router.post('/register', authLimiter, register);
 router.post('/login', authLimiter, login);
+
+// Google OAuth routes
+router.get('/google', googleAuth);
+router.get('/google/callback', googleCallback);
+router.post('/google/verify', verifyGoogleToken);
 
 // Protected routes
 router.get('/me', authenticate, getCurrentUser);

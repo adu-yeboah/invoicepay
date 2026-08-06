@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { prisma } from '../config/database.js';
+import { prisma } from '#config/database.js';
 import {
   createInvoiceSchema,
   updateInvoiceSchema,
@@ -8,13 +8,13 @@ import {
   updateItemSchema,
   listInvoicesSchema,
   sendInvoiceSchema
-} from '../utils/validation.schema.js';
+} from '#utils/validation.schema.js';
 import {
   calculateInvoiceTotals,
   validateInvoiceItem,
   generateInvoicePDF,
   generateInvoiceNumber
-} from '../utils/invoice.utils.js';
+} from '#utils/invoice.utils.js';
 
 // Create Invoice
 export const createInvoice = async (req: Request, res: Response) => {
@@ -121,8 +121,12 @@ export const listInvoices = async (req: Request, res: Response) => {
       user_id: req.user!.userId,
       ...(client_id && { client_id }),
       ...(status && { status }),
-      ...(from_date && { issue_date: { gte: from_date } }),
-      ...(to_date && { issue_date: { lte: to_date } }),
+      ...((from_date || to_date) && {
+        issue_date: {
+          ...(from_date && { gte: from_date }),
+          ...(to_date && { lte: to_date })
+        }
+      }),
       ...(search && {
         OR: [
           { invoice_number: { contains: search, mode: 'insensitive' as const } },
@@ -380,12 +384,7 @@ export const updateInvoiceStatus = async (req: Request, res: Response) => {
       });
     }
 
-    if (status === 'paid' && !invoice.paid_at) {
-      return res.status(400).json({
-        success: false,
-        message: 'Cannot mark as paid without payment. Use payment endpoint instead.'
-      });
-    }
+    // Removed paid_at check as there is currently no payment endpoint to set it
 
     const updatedInvoice = await prisma.invoice.update({
       where: { id: invoiceId },
@@ -443,12 +442,7 @@ export const deleteInvoice = async (req: Request, res: Response) => {
     }
 
     // Don't allow deleting invoices with payments
-    const invoiceWithPayments = await prisma.invoice.findFirst({
-      where: { id: invoiceId },
-      include: { _count: { select: { payments: true } } }
-    });
-
-    if (invoiceWithPayments && invoiceWithPayments._count.payments > 0) {
+    if (invoice._count.payments > 0) {
       return res.status(400).json({
         success: false,
         message: 'Cannot delete invoices with existing payments. Cancel them instead.'

@@ -14,7 +14,10 @@ export const comparePassword = async (password: string, hash: string): Promise<b
 
 
 //JWT token generation 
-const JWT_SECRET = process.env.JWT_SECRET || '30m'
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is required');
+}
 const JWT_EXPIRES_IN: SignOptions['expiresIn'] =  '7d'
 const REFRESH_TOKEN_EXPIRES_IN = process.env.REFRESH_TOKEN_EXPIRES_IN as SignOptions['expiresIn'] || '30d'
 

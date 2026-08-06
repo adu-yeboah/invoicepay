@@ -15,11 +15,19 @@ app.use(cors())
 app.use(compression());
 app.use(morgan('dev'))
 
+// Graceful shutdown connection tracker
+export let activeConnections = 0;
+app.use((req, res, next) => {
+  activeConnections++;
+  res.on("finish", () => activeConnections--);
+  next();
+});
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/clients", clientRoutes);
+app.use("/api/invoices", publicRouter); // Must come before authenticated router
 app.use("/api/invoices", invoiceRoutes);
-app.use("/api/invoices", publicRouter); // Must come after to not override protected routes
 
 // Health Check
 app.get("/health", (_, res) => {
