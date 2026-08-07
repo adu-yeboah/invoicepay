@@ -24,7 +24,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./invoicepay-api  
+        working-directory: ./invoicepay-api
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+        working-directory: ./invoicepay-api
 
       - name: Build Application
         run: npm run build

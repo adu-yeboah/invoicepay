@@ -8,7 +8,7 @@ export const updateProfile = async (req: Request, res: Response) => {
 
     const user = await prisma.user.update({
       where: { id: req.user!.userId },
-      data: validatedData,
+      data: validatedData as any,
       select: {
         id: true,
         email: true,
@@ -39,7 +39,7 @@ export const updateIntegrations = async (req: Request, res: Response) => {
 
     const user = await prisma.user.update({
       where: { id: req.user!.userId },
-      data: validatedData,
+      data: validatedData as any,
       select: {
         id: true,
         paystack_test_mode: true,
@@ -66,7 +66,7 @@ export const updateNotificationPrefs = async (req: Request, res: Response) => {
 
     const user = await prisma.user.update({
       where: { id: req.user!.userId },
-      data: validatedData,
+      data: validatedData as any,
       select: {
         id: true,
         email_notifications: true,

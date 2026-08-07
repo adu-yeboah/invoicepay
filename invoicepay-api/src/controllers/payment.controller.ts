@@ -1,5 +1,8 @@
 import type { Request, Response } from 'express';
 import { prisma } from '#config/database.js';
+import type { PrismaClient } from '@prisma/client';
+
+type TransactionClient = Omit<PrismaClient, '$connect' | '$disconnect' | '$on' | '$transaction' | '$use'>;
 
 export const listPayments = async (req: Request, res: Response) => {
   try {
@@ -138,7 +141,7 @@ export const paystackWebhook = async (req: Request, res: Response) => {
          const verifyResult = await response.json();
          
          if (verifyResult.data.status === 'success') {
-            await prisma.$transaction(async (tx) => {
+            await prisma.$transaction(async (tx: TransactionClient) => {
               // Update payment
               await tx.payment.update({
                 where: { id: payment.id },
